@@ -1,0 +1,14 @@
+{
+  "private": true,
+  "main": "dist/index.js",
+  "module": "dist/index.esm.mjs",
+  "dependencies": {},
+  "devDependencies": {
+    "jsy-transpile": "github:shanewholloway/jsy-transpile",
+    "rollup": "^0.55.3",
+    "rollup-plugin-jsy-lite": "file:../.."
+  },
+  "scripts": {
+    "build": "rollup --config"
+  }
+}
