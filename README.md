@@ -15,8 +15,8 @@ const plugins = [rpi_jsy()]
 const external = []
 
 export default [
-	{ input: 'code/index.jsy',
-		output: [
+  { input: 'code/index.jsy',
+    output: [
       { file: pkg.main, format: 'cjs', exports:'named', sourcemap },
       { file: pkg.module, format: 'es', sourcemap }],
     plugins, external },
@@ -27,7 +27,7 @@ in `package.json` :
 ```json
 { …
   "main": "dist/index.js",
-  "module": "dist/index.mjs",
+  "module": "dist/index.esm.mjs",
   "files": [ "dist/", "code/" ],
 
   "dependencies": { },
