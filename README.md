@@ -4,6 +4,31 @@ Babel configuration for using JSY in rollup
 
 ## Example
 
+Install devDependencies :
+
+```bash
+$ npm install -D rollup rollup-plugin-jsy-lite jsy-transpile
+```
+
+in `package.json` :
+```json
+{ …
+  "main": "cjs/index.js",
+  "module": "esm/index.mjs",
+  "browser": "umd/index.js",
+  "files": [ "cjs/", "esm/", "umd/" ],
+
+  "scripts": {
+    "clean": "rm -rf ./dist/*",
+    "build": "rollup --config",
+    "watch": "npm -s run build -- --watch",
+    "pretest": "npm -s run build",
+    "test": "true"
+  },
+
+  … }
+```
+
 in `rollup.config.js` :
 
 ```javascript
@@ -18,34 +43,10 @@ export default [
   { input: 'code/index.jsy',
     output: [
       { file: pkg.main, format: 'cjs', exports:'named', sourcemap },
+      { file: pkg.browser, format: 'umd', exports:'named', sourcemap },
       { file: pkg.module, format: 'es', sourcemap }],
     plugins, external },
-]
-```
-
-in `package.json` :
-```json
-{ …
-  "main": "dist/index.js",
-  "module": "dist/index.esm.mjs",
-  "files": [ "dist/", "code/" ],
-
-  "dependencies": { },
-
-  "devDependencies": {
-    "jsy-transpile": "github:shanewholloway/jsy-transpile",
-    "rollup": "^0.55.3",
-    "rollup-plugin-jsy-lite": "github:shanewholloway/rollup-plugin-jsy-lite"
-  },
-
-  "scripts": {
-    "clean": "rm -rf ./dist/*",
-    "build": "rollup --config",
-    "watch": "npm -s run build -- --watch",
-    "pretest": "npm -s run build",
-    "test": "true"
-  }
-}
+].filter(e=>e)
 ```
 
 ## License
