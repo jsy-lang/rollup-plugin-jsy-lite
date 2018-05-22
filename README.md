@@ -19,7 +19,7 @@ in `package.json` :
   "files": [ "cjs/", "esm/", "umd/" ],
 
   "scripts": {
-    "clean": "rm -rf ./dist/*",
+    "clean": "rm -rf ./cjs/* ./esm/* ./umd/*",
     "build": "rollup --config",
     "watch": "npm -s run build -- --watch",
     "pretest": "npm -s run build",
@@ -43,7 +43,7 @@ export default [
   { input: 'code/index.jsy',
     output: [
       { file: pkg.main, format: 'cjs', exports:'named', sourcemap },
-      { file: pkg.browser, format: 'umd', exports:'named', sourcemap },
+      { file: pkg.browser, format: 'umd', name: pkg.name, exports:'named', sourcemap },
       { file: pkg.module, format: 'es', sourcemap }],
     plugins, external },
 ].filter(e=>e)

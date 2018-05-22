@@ -1,3 +1,4 @@
+syntax: glob
 examples/*/dist
 examples/*/package-lock.json
 examples/*/yarn.lock
