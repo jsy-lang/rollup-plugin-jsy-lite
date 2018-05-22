@@ -1,8 +1,6 @@
 import path, { resolve, sep } from 'path';
 import { jsy_scanner } from 'jsy-transpile';
 
-//# sourceMappingURL=estree-walker.es.js.map
-
 function createCommonjsModule(fn, module) {
 	return module = { exports: {} }, fn(module, module.exports), module.exports;
 }
@@ -281,7 +279,7 @@ var toString$3 = Object.prototype.toString;
  * @return {*} Native javascript type
  */
 
-var kindOf$2 = function kindOf(val) {
+var kindOf$1 = function kindOf(val) {
   // primitivies
   if (typeof val === 'undefined') {
     return 'undefined';
@@ -388,8 +386,8 @@ var kindOf$2 = function kindOf(val) {
   return 'object';
 };
 
-var isNumber$2 = function isNumber(num) {
-  var type = kindOf$2(num);
+var isNumber$1 = function isNumber(num) {
+  var type = kindOf$1(num);
 
   if (type === 'string') {
     if (!num.trim()) return false;
@@ -409,7 +407,7 @@ var toString$4 = Object.prototype.toString;
  * @return {*} Native javascript type
  */
 
-var kindOf$4 = function kindOf(val) {
+var kindOf$2 = function kindOf(val) {
   // primitivies
   if (typeof val === 'undefined') {
     return 'undefined';
@@ -519,6 +517,10 @@ var kindOf$4 = function kindOf(val) {
   return 'object';
 };
 
+/**
+ * Expose `randomatic`
+ */
+
 var randomatic_1 = randomatic;
 
 /**
@@ -555,12 +557,12 @@ function randomatic(pattern, length, options) {
     if (typeof pattern === 'string') {
       length = pattern.length;
 
-    } else if (isNumber$2(pattern)) {
+    } else if (isNumber$1(pattern)) {
       options = {}; length = pattern; pattern = '*';
     }
   }
 
-  if (kindOf$4(length) === 'object' && length.hasOwnProperty('chars')) {
+  if (kindOf$2(length) === 'object' && length.hasOwnProperty('chars')) {
     options = length;
     pattern = options.chars;
     length = pattern.length;
@@ -591,6 +593,10 @@ function randomatic(pattern, length, options) {
  *
  * Copyright (c) 2014-2015, Jon Schlinkert.
  * Licensed under the MIT License.
+ */
+
+/**
+ * Results cache
  */
 
 var res = '';
@@ -667,6 +673,10 @@ var repeatElement = function repeat(ele, num) {
 
   return arr;
 };
+
+/**
+ * Expose `fillRange`
+ */
 
 var fillRange_1 = fillRange;
 
@@ -1098,9 +1108,22 @@ var expandRange = function expandRange(str, options, fn) {
  * Licensed under the MIT license.
  */
 
+/**
+ * Replace tokens in `str` with a temporary, heuristic placeholder.
+ *
+ * ```js
+ * tokens.before('{a\\,b}');
+ * //=> '{__ID1__}'
+ * ```
+ *
+ * @param  {String} `str`
+ * @return {String} String with placeholders.
+ * @api public
+ */
+
 var before = function before(str, re) {
   return str.replace(re, function (match) {
-    var id = randomize$1();
+    var id = randomize();
     cache$1[id] = match;
     return '__ID' + id + '__';
   });
@@ -1125,7 +1148,7 @@ var after = function after(str) {
   });
 };
 
-function randomize$1() {
+function randomize() {
   return Math.random().toString().slice(2, 7);
 }
 
@@ -1135,6 +1158,18 @@ var preserve = {
 	before: before,
 	after: after
 };
+
+/**
+ * Module dependencies
+ */
+
+
+
+
+
+/**
+ * Expose `braces`
+ */
 
 var braces_1 = function(str, options) {
   if (typeof str !== 'string') {
@@ -1526,6 +1561,10 @@ var isPosixBracket = function isPosixBracket(str) {
   return typeof str === 'string' && /\[([:.=+])(?:[^\[\]]|)+\1\]/.test(str);
 };
 
+/**
+ * POSIX character classes
+ */
+
 var POSIX = {
   alnum: 'a-zA-Z0-9',
   alpha: 'a-zA-Z',
@@ -1687,14 +1726,18 @@ var isExtglob = function isExtglob(str) {
     && /[@?!+*]\(/.test(str);
 };
 
-var re;
-var cache$2 = {};
+/**
+ * Module dependencies
+ */
+
+
+var re, cache$2 = {};
 
 /**
  * Expose `extglob`
  */
 
-var extglob_1 = extglob$1;
+var extglob_1 = extglob;
 
 /**
  * Convert the given extglob `string` to a regex-compatible
@@ -1715,7 +1758,7 @@ var extglob_1 = extglob$1;
  */
 
 
-function extglob$1(str, opts) {
+function extglob(str, opts) {
   opts = opts || {};
   var o = {}, i = 0;
 
@@ -1853,6 +1896,15 @@ function toRegex(pattern, contains, isNegated) {
   return new RegExp(prefix + pattern);
 }
 
+/*!
+ * is-glob <https://github.com/jonschlinkert/is-glob>
+ *
+ * Copyright (c) 2014-2015, Jon Schlinkert.
+ * Licensed under the MIT License.
+ */
+
+
+
 var isGlob = function isGlob(str) {
   return typeof str === 'string'
     && (/[*!?{}(|)[\]]/.test(str)
@@ -1876,6 +1928,15 @@ function isSeparator(str, i) {
 	var char = str[i];
 	return i > 0 && (char === '/' || (isWin && char === '\\'));
 }
+
+/*!
+ * normalize-path <https://github.com/jonschlinkert/normalize-path>
+ *
+ * Copyright (c) 2014-2017, Jon Schlinkert.
+ * Released under the MIT License.
+ */
+
+
 
 var normalizePath = function normalizePath(str, stripTrailing) {
   if (typeof str !== 'string') {
@@ -2015,11 +2076,14 @@ var isDotfile = function(str) {
 };
 
 var parseGlob = createCommonjsModule(function (module) {
-/*!
- * parse-glob <https://github.com/jonschlinkert/parse-glob>
- *
- * Copyright (c) 2015, Jon Schlinkert.
- * Licensed under the MIT License.
+
+
+
+
+
+
+/**
+ * Expose `cache`
  */
 
 var cache = module.exports.cache = {};
@@ -2161,7 +2225,6 @@ function unescape(str) {
   return str;
 }
 });
-
 var parseGlob_1 = parseGlob.cache;
 
 /*!
@@ -2171,6 +2234,7 @@ var parseGlob_1 = parseGlob.cache;
  * Licensed under the MIT License.
  */
 
+// see http://jsperf.com/testing-value-is-primitive/7
 var isPrimitive = function isPrimitive(value) {
   return value == null || (typeof value !== 'function' && typeof value !== 'object');
 };
@@ -2250,11 +2314,11 @@ function memo(key, opts, regex) {
 
 var cache_1 = cache$3;
 var basic_1 = basic;
-
 regexCache_1.cache = cache_1;
 regexCache_1.basic = basic_1;
 
 var utils_1 = createCommonjsModule(function (module) {
+
 var win32 = process && process.platform === 'win32';
 
 
@@ -2404,9 +2468,7 @@ utils.escapeRe = function escapeRe(str) {
 module.exports = utils;
 });
 
-var chars = {};
-var unesc;
-var temp;
+var chars = {}, unesc, temp;
 
 function reverse(object, prepender) {
   return Object.keys(object).reduce(function(reversed, key) {
@@ -2473,6 +2535,14 @@ chars.TEMP = temp || (temp = reverse(chars.ESC_TEMP));
 var chars_1 = chars;
 
 var glob = createCommonjsModule(function (module) {
+
+
+
+
+/**
+ * Expose `Glob`
+ */
+
 var Glob = module.exports = function Glob(pattern, options) {
   if (!(this instanceof Glob)) {
     return new Glob(pattern, options);
@@ -2659,7 +2729,11 @@ function unesc(str) {
 }
 });
 
-var expand_1 = expand$1;
+/**
+ * Expose `expand`
+ */
+
+var expand_1 = expand;
 
 /**
  * Expand a glob pattern to resolve braces and
@@ -2671,7 +2745,7 @@ var expand_1 = expand$1;
  * @return {Array}
  */
 
-function expand$1(pattern, options) {
+function expand(pattern, options) {
   if (typeof pattern !== 'string') {
     throw new TypeError('micromatch.expand(): argument should be a string.');
   }
@@ -2947,6 +3021,16 @@ function globstar(dotfile) {
   if (dotfile) { return twoStarDot; }
   return '(?:(?!(?:\\/|^)\\.).)*?';
 }
+
+/**
+ * The main function. Pass an array of filepaths,
+ * and a string or array of glob patterns
+ *
+ * @param  {Array|String} `files`
+ * @param  {Array|String} `patterns`
+ * @param  {Object} `opts`
+ * @return {Array} Array of matches
+ */
 
 function micromatch(files, patterns, opts) {
   if (!files || !patterns) return [];
@@ -3401,8 +3485,7 @@ var blacklisted = Object.create( null );
 reservedWords.concat( builtins ).forEach( function (word) { return blacklisted[ word ] = true; } );
 
 const default_config = { exclude: 'node_modules/**' };
-
-function jsy_lite$1(config=default_config) {
+function jsy_lite(config=default_config) {
   const filter = createFilter(config.include, config.exclude);
   const sourceMap = false !== config.sourceMap;
 
@@ -3414,4 +3497,4 @@ function jsy_lite$1(config=default_config) {
       const res = jsy_scanner(code, {source: id});
       return { code: res.src_code(), map: res.src_map.toJSON() } } } }
 
-export default jsy_lite$1;
+export default jsy_lite;

@@ -18,6 +18,13 @@ in `package.json` :
   "browser": "umd/index.js",
   "files": [ "cjs/", "esm/", "umd/" ],
 
+  "dependencies": { },
+
+  "devDependencies": {
+    "rollup": "^0.59.2",
+    "rollup-plugin-jsy-lite": "^1.0.0"
+  },
+
   "scripts": {
     "clean": "rm -rf ./cjs/* ./esm/* ./umd/*",
     "build": "rollup --config",

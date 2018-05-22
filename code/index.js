@@ -1,4 +1,3 @@
-import {parse as path_parse} from 'path'
 import {createFilter} from 'rollup-pluginutils'
 import {jsy_scanner} from 'jsy-transpile'
 
