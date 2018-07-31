@@ -1,8 +1,8 @@
-# rollup-plugin-jsy-lite
+# Glob pattern use of rollup-plugin-jsy-lite
 
 Configuration for using [JSY](https://github.com/jsy-lang/jsy-lang-docs#readme) in [RollupJS](https://rollupjs.org) *without Babel*.
 
-## Quick Start
+##### NPM Install
 
 ```bash
 # optional; could also use `npm init .`
@@ -11,7 +11,8 @@ $ echo '{"private": true}' > package.json
 # install devDependencies for JSY and RollupJS
 $ npm install -D \
     rollup rollup-plugin-jsy-lite \
-    jsy-transpile
+    jsy-transpile \
+    glob
 ```
 
 ##### Add `rollup.config.js` with:
@@ -28,14 +29,15 @@ const plugins = [rpi_jsy()]
 const external = []
 
 
-const direct = [
-  'my_script',
-].forEach(add_jsy)
+import {sync as glob_sync} from 'glob'
+glob_sync('code/*.jsy')
+  .forEach(add_jsy)
 
 
-function add_jsy(name) {
+function add_jsy(src_filename) {
+  const {name} = path_parse(src_filename)
   configs.push({
-    input: `code/${name}.js`,
+    input: src_filename,
     output: [
       { file: `cjs/${name}.js`, format: 'cjs', exports:'named', sourcemap },
       { file: `umd/${name}.js`, format: 'umd', name, exports:'named', sourcemap },
@@ -59,13 +61,3 @@ function add_jsy(name) {
   }
 }
 ```
-
-## Other Examples
-
-- by [Direct named files](examples/direct/README.md)
-- by [Glob pattern](examples/glob/README.md)
-- by [Package main/module/browser keys](examples/package/README.md)
-
-## License
-
-[MIT](LICENSE)

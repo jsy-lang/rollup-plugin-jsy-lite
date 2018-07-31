@@ -1,8 +1,8 @@
-# rollup-plugin-jsy-lite
+# Package reference use of rollup-plugin-jsy-lite
 
 Configuration for using [JSY](https://github.com/jsy-lang/jsy-lang-docs#readme) in [RollupJS](https://rollupjs.org) *without Babel*.
 
-## Quick Start
+##### NPM Install
 
 ```bash
 # optional; could also use `npm init .`
@@ -17,31 +17,35 @@ $ npm install -D \
 ##### Add `rollup.config.js` with:
 
 ```javascript
-import {parse as path_parse} from 'path'
 import rpi_jsy from 'rollup-plugin-jsy-lite'
 
 const configs = []
 export default configs
+
 
 const sourcemap = 'inline'
 const plugins = [rpi_jsy()]
 const external = []
 
 
-const direct = [
-  'my_script',
-].forEach(add_jsy)
+import pkg from './package.json'
+configs.push({
+  input: 'code/index.jsy',
+  output: [ 
+      pkg.main && { file: pkg.main, format: 'cjs', exports:'named', sourcemap },
+      pkg.browser && { file: pkg.browser, format: 'umd', name: pkg.name, exports:'named', sourcemap },
+      pkg.module && { file: pkg.module, format: 'es', sourcemap },
+    ].filter(Boolean),
+  plugins, external })
+```
 
+##### Add library exports to `package.json` :
 
-function add_jsy(name) {
-  configs.push({
-    input: `code/${name}.js`,
-    output: [
-      { file: `cjs/${name}.js`, format: 'cjs', exports:'named', sourcemap },
-      { file: `umd/${name}.js`, format: 'umd', name, exports:'named', sourcemap },
-      { file: `esm/${name}.js`, format: 'es', sourcemap },
-    ],
-    plugins, external })
+```json
+{
+  "main": "cjs/index.js",
+  "module": "esm/index.mjs",
+  "browser": "umd/index.js",
 }
 ```
 
@@ -59,13 +63,3 @@ function add_jsy(name) {
   }
 }
 ```
-
-## Other Examples
-
-- by [Direct named files](examples/direct/README.md)
-- by [Glob pattern](examples/glob/README.md)
-- by [Package main/module/browser keys](examples/package/README.md)
-
-## License
-
-[MIT](LICENSE)

@@ -1,10 +1,10 @@
 {
   "name": "rollup-plugin-jsy-lite",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Rollup JSY syntax transpiler to standard JavaScript — without Babel",
   "license": "MIT",
   "author": "Shane Holloway",
-  "homepage": "https://github.com/shanewholloway/rollup-plugin-jsy-lite#readme",
+  "homepage": "https://github.com/jsy-lang/rollup-plugin-jsy-lite#readme",
   "keywords": [
     "rollup",
     "rollup-plugin",
@@ -17,7 +17,7 @@
   "module": "dist/rollup-plugin-jsy-lite.esm.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/shanewholloway/rollup-plugin-jsy-lite.git"
+    "url": "git+https://github.com/jsy-lang/rollup-plugin-jsy-lite.git"
   },
   "dependencies": {},
   "devDependencies": {
