@@ -3489,17 +3489,27 @@ var builtins = 'arguments Infinity NaN undefined null true false eval uneval isF
 var blacklisted = Object.create( null );
 reservedWords.concat( builtins ).forEach( function (word) { return blacklisted[ word ] = true; } );
 
+const { SourceMapGenerator } = require('source-map');
 const default_config = { exclude: 'node_modules/**' };
 function jsy_lite(config=default_config) {
   const filter = createFilter(config.include, config.exclude);
-  const sourceMap = false !== config.sourceMap;
+  const sourcemap = false !== config.sourcemap && false !== config.sourceMap;
 
   return {
     name: 'jsy-lite',
     transform(code, id) {
       if (! filter(id)) return
 
-      const res = jsyTranspile.jsy_scanner(code, {source: id});
-      return { code: res.src_code(), map: res.src_map.toJSON() } } } }
+      const src_map = sourcemap ? new SourceMapGenerator() : null;
+
+      const res = jsyTranspile.jsy_transpile(code, {
+        addSourceMapping(arg) {
+          if (null === src_map) return;
+          arg.source = id;
+          src_map.addMapping(arg);
+        },
+      });
+      return { code: res, map: src_map.toJSON() } },
+} }
 
 module.exports = jsy_lite;
