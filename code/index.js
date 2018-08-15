@@ -1,5 +1,9 @@
 import { createFilter } from 'rollup-pluginutils'
-import { jsy_transpile } from 'jsy-transpile'
+
+import jsy_transpile_snapshot from 'jsy-transpile'
+
+let jsy_transpile = jsy_transpile_snapshot
+try { jsy_transpile = require('jsy-transpile') } catch (err) {}
 
 const { SourceMapGenerator } = require('source-map')
 const default_config = { exclude: 'node_modules/**' }

@@ -6,7 +6,7 @@ const plugins = [
   rpi_resolve(),
   rpi_commonjs({ include: 'node_modules/**', sourceMap: false }),
 ]
-const external = ['path', 'jsy-transpile']
+const external = ['path']
 
 export default {
 	input: 'code/index.js',
