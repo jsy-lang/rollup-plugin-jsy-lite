@@ -1,4 +1,5 @@
 # rollup-plugin-jsy-lite
+[![Build Status](https://travis-ci.org/jsy-lang/rollup-plugin-jsy-lite.svg?branch=master)](https://travis-ci.org/jsy-lang/rollup-plugin-jsy-lite)
 
 Configuration for using [JSY](https://github.com/jsy-lang/jsy-lang-docs#readme) in [RollupJS](https://rollupjs.org) *without Babel*.
 
