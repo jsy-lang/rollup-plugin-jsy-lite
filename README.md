@@ -39,7 +39,7 @@ const direct = [
 
 function add_jsy(name) {
   configs.push({
-    input: `code/${name}.js`,
+    input: `code/${name}.jsy`,
     output: [
       { file: `cjs/${name}.js`, format: 'cjs', exports:'named', sourcemap },
       { file: `umd/${name}.js`, format: 'umd', name, exports:'named', sourcemap },
