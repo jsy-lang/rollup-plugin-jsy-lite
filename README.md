@@ -10,9 +10,7 @@ Configuration for using [JSY](https://github.com/jsy-lang/jsy-lang-docs#readme) 
 $ echo '{"private": true}' > package.json
 
 # install devDependencies for JSY and RollupJS
-$ npm install -D \
-    rollup rollup-plugin-jsy-lite \
-    jsy-transpile
+$ npm install -D rollup rollup-plugin-jsy-lite jsy-transpile
 ```
 
 ##### Add `rollup.config.js` with:
