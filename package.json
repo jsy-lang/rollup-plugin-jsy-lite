@@ -1,6 +1,6 @@
 {
   "name": "rollup-plugin-jsy-lite",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Rollup JSY syntax transpiler to standard JavaScript — without Babel",
   "license": "MIT",
   "author": "Shane Holloway",
@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "rollup-plugin-jsy-lite": "file:.",
-    "jsy-transpile": "^0.2.5",
+    "jsy-transpile": "^0.3.3",
     "rollup": "^0.65.0",
     "rollup-plugin-commonjs": "^9.1.6",
     "rollup-plugin-node-resolve": "^3.3.0",

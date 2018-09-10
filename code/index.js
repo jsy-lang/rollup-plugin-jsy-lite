@@ -20,13 +20,20 @@ function jsy_lite(config=default_config) {
 
       const src_map = sourcemap ? new SourceMapGenerator() : null
 
-      const res = jsy_transpile(code, {
-        addSourceMapping(arg) {
-          if (null === src_map) return;
-          arg.source = id
-          src_map.addMapping(arg)
-        },
-      })
-      return { code: res, map: src_map.toJSON() } },
+      try {
+        const res = jsy_transpile(code, {
+          addSourceMapping(arg) {
+            if (null === src_map) return;
+            arg.source = id
+            src_map.addMapping(arg)
+          },
+        })
+        return { code: res, map: src_map.toJSON() }
+      } catch (err) {
+        if (undefined !== err.src_loc)
+          this.error(err, err.src_loc.pos)
+        else throw err
+      }
+   },
 } }
 
