@@ -37,7 +37,7 @@
     "clean": "rm -rf cjs/ esm/",
     "build": "rollup --config",
     "watch": "npm -s run build -- --watch",
-    "--prepublish": "npm -s run test",
+    "prepublish": "npm -s run test",
     "pretest": "npm -s run build",
     "test": "rollup --config test/test.rollup.config.js"
   }
