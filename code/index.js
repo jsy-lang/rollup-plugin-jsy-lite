@@ -9,9 +9,12 @@ const { SourceMapGenerator } = require('source-map')
 const default_config = { exclude: 'node_modules/**' }
 
 export default jsy_lite
-function jsy_lite(config=default_config) {
+function jsy_lite(config) {
+  config = Object.assign({}, default_config, config)
+
   const filter = createFilter(config.include, config.exclude)
   const sourcemap = false !== config.sourcemap && false !== config.sourceMap
+  const { preprocess, preprocessor, defines } = config
 
   return {
     name: 'jsy-lite',
@@ -22,6 +25,7 @@ function jsy_lite(config=default_config) {
 
       try {
         const res = jsy_transpile(code, {
+          preprocess, preprocessor, defines,
           addSourceMapping(arg) {
             if (null === src_map) return;
             arg.source = id
