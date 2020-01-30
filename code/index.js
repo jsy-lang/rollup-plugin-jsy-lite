@@ -1,4 +1,4 @@
-import { createFilter } from 'rollup-pluginutils'
+import { createFilter } from '@rollup/pluginutils'
 
 import jsy_transpile_snapshot from 'jsy-transpile'
 
