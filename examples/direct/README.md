@@ -10,14 +10,12 @@ $ echo '{"private": true}' > package.json
 
 # install devDependencies for JSY and RollupJS
 $ npm install -D \
-    rollup rollup-plugin-jsy-lite \
-    jsy-transpile
+    rollup rollup-plugin-jsy-lite
 ```
 
 ##### Add `rollup.config.js` with:
 
 ```javascript
-import {parse as path_parse} from 'path'
 import rpi_jsy from 'rollup-plugin-jsy-lite'
 
 const configs = []
@@ -28,15 +26,12 @@ const plugins = [rpi_jsy()]
 const external = []
 
 
-const direct = [
-  'code/my_script.jsy',
-].forEach(add_jsy)
+add_jsy('my_script')
 
 
 function add_jsy(src_filename) {
-  const {name} = path_parse(src_filename)
   configs.push({
-    input: src_filename,
+    input: `code/${name}.jsy`,
     output: [
       { file: `cjs/${name}.js`, format: 'cjs', exports:'named', sourcemap },
       { file: `umd/${name}.js`, format: 'umd', name, exports:'named', sourcemap },

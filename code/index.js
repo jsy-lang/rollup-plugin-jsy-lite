@@ -1,43 +1,15 @@
-import { createFilter } from '@rollup/pluginutils'
+import _rpi_jsy from 'jsy-transpile/esm/rollup.mjs'
 
-import jsy_transpile_snapshot from 'jsy-transpile'
+const default_jsy_config = { exclude: 'node_modules/**' }
 
-let jsy_transpile = jsy_transpile_snapshot
-try { jsy_transpile = require('jsy-transpile') } catch (err) {}
+try {
+  default_jsy_config.jsy_transpile =
+    require('jsy-transpile')
+} catch (err) {
+}
 
-const { SourceMapGenerator } = require('source-map')
-const default_config = { exclude: 'node_modules/**' }
-
-export default jsy_lite
-function jsy_lite(config) {
-  config = Object.assign({}, default_config, config)
-
-  const filter = createFilter(config.include, config.exclude)
-  const sourcemap = false !== config.sourcemap && false !== config.sourceMap
-  const { preprocess, preprocessor, defines } = config
-
-  return {
-    name: 'jsy-lite',
-    transform(code, id) {
-      if (! filter(id)) return
-
-      const src_map = sourcemap ? new SourceMapGenerator() : null
-
-      try {
-        const res = jsy_transpile(code, {
-          preprocess, preprocessor, defines,
-          addSourceMapping(arg) {
-            if (null === src_map) return;
-            arg.source = id
-            src_map.addMapping(arg)
-          },
-        })
-        return { code: res, map: src_map.toJSON() }
-      } catch (err) {
-        if (undefined !== err.src_loc)
-          this.error(err, err.src_loc.pos)
-        else throw err
-      }
-   },
-} }
+export default function rpi_jsy(config) {
+  config = {... default_jsy_config, ...config}
+  return _rpi_jsy(config)
+}
 

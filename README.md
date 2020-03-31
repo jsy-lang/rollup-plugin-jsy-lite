@@ -10,7 +10,7 @@ Configuration for using [JSY](https://github.com/jsy-lang/jsy-lang-docs#readme) 
 $ echo '{"private": true}' > package.json
 
 # install devDependencies for JSY and RollupJS
-$ npm install -D rollup rollup-plugin-jsy-lite jsy-transpile
+$ npm install -D rollup rollup-plugin-jsy-lite
 ```
 
 ##### Add `rollup.config.js` with:
@@ -30,9 +30,7 @@ const external = []
 /// plugins.push(rpi_resolve({main: true, browser: true, modules: true}))
 
 
-const direct = [
-  'my_script',
-].forEach(add_jsy)
+add_jsy('my_script')
 
 
 function add_jsy(name) {

@@ -10,8 +10,7 @@ $ echo '{"private": true}' > package.json
 
 # install devDependencies for JSY and RollupJS
 $ npm install -D \
-    rollup rollup-plugin-jsy-lite \
-    jsy-transpile
+    rollup rollup-plugin-jsy-lite
 ```
 
 ##### Add `rollup.config.js` with:
