@@ -3,8 +3,9 @@ import _rpi_jsy from 'jsy-transpile/esm/rollup.mjs'
 const default_jsy_config = { exclude: 'node_modules/**' }
 
 try {
+  const jsy_transpile = require('jsy-transpile')
   default_jsy_config.jsy_transpile =
-    require('jsy-transpile')
+    jsy_transpile.default || jsy_transpile
 } catch (err) {
 }
 
